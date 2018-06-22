@@ -36,7 +36,7 @@ X_train = np.array(augmented_images)
 y_train = np.array(augmented_measurements)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Convolution2D, Lambda
+from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Dropout
 
 # model = Sequential()
 # # add a 3x3 convolution on top, with 32 output filters:
@@ -50,10 +50,12 @@ from keras.layers import Flatten, Dense, Convolution2D, Lambda
 # model.add(Dense(1))
 
 model = Sequential()
+model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160,320,3)))
+
 # For an explanation on conv layers see http://cs231n.github.io/convolutional-networks/#conv
 # By default the stride/subsample is 1 and there is no zero-padding.
 # If you want zero-padding add a ZeroPadding layer or, if stride is 1 use border_mode="same"
-model.add(Convolution2D(12, 5, 5, activation = 'relu', input_shape=(160,320,3), init='he_normal'))
+model.add(Convolution2D(12, 5, 5, activation = 'relu', init='he_normal'))
 
 # For an explanation on pooling layers see http://cs231n.github.io/convolutional-networks/#pool
 model.add(MaxPooling2D(pool_size=(2, 2)))
