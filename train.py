@@ -53,7 +53,7 @@ model = Sequential()
 # For an explanation on conv layers see http://cs231n.github.io/convolutional-networks/#conv
 # By default the stride/subsample is 1 and there is no zero-padding.
 # If you want zero-padding add a ZeroPadding layer or, if stride is 1 use border_mode="same"
-model.add(Convolution2D(12, 5, 5, activation = 'relu', input_shape=in_shape, init='he_normal'))
+model.add(Convolution2D(12, 5, 5, activation = 'relu', input_shape=(160,320,3), init='he_normal'))
 
 # For an explanation on pooling layers see http://cs231n.github.io/convolutional-networks/#pool
 model.add(MaxPooling2D(pool_size=(2, 2)))
