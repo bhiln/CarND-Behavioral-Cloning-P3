@@ -52,24 +52,14 @@ X_train = np.array(augmented_images)
 y_train = np.array(augmented_measurements)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Dropout, Conv2D
+from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Cropping2D
 
 input_shape=(160,320,3)
 num_classes=1
-# model = Sequential()
-# # add a 3x3 convolution on top, with 32 output filters:
-# # model.add(Convolution2D(32, 3, 3, border_mode='same', input_shape=(160,320,3)))
-# # model.add(Convolution2D(32, 3, 3))
-# model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160,320,3)))
-# model.add(Convolution2D(6, 5, 5, activation='relu'))
-# model.add(Flatten())
-# # model.add(Flatten(input_shape=(160,320,3)))
-# # model.add(Dense(100))
-# model.add(Dense(1))
 
 model = Sequential()
-model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160,320,3)))
-
+model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=input_shape))
+model.add(Cropping2D(cropping=((70,25),(0,0))))
 model.add(Convolution2D(6,5,5,activation='relu'))
 model.add(MaxPooling2D())
 model.add(Convolution2D(6,5, 5, activation='relu'))
