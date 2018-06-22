@@ -25,6 +25,22 @@ for line in lines:
 	measurement = float(line[3])
 	measurements.append(measurement)
 
+	correction = 0.2
+
+	source_path = line[1]
+	filename = source_path.split('/')[-1]
+	current_path = FLAGS.folder + '/IMG/' + filename
+	image = cv2.imread(current_path)
+	images.append(image)
+	measurements.append(measurement+correction)
+
+	source_path = line[1]
+	filename = source_path.split('/')[-1]
+	current_path = FLAGS.folder + '/IMG/' + filename
+	image = cv2.imread(current_path)
+	images.append(image)
+	measurements.append(measurement-correction)
+
 augmented_images, augmented_measurements = [], []
 for image, measurement in zip(images, measurements):
 	augmented_images.append(image)
