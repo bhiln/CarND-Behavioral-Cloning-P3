@@ -7,9 +7,9 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 flags.DEFINE_integer('epochs', 50, "The number of epochs.")
-
+flags.DEFINE_string('folder', './', "The folder.")
 lines = []
-with open('./driving_log.csv') as csvfile:
+with open(FLAGS.folder + '/driving_log.csv') as csvfile:
 	reader = csv.reader(csvfile)
 	for line in reader:
 		lines.append(line)
@@ -19,7 +19,7 @@ measurements = []
 for line in lines:
 	source_path = line[0]
 	filename = source_path.split('/')[-1]
-	current_path = './IMG/' + filename
+	current_path = FLAGS.folder + '/IMG/' + filename
 	image = cv2.imread(current_path)
 	images.append(image)
 	measurement = float(line[3])
@@ -52,14 +52,15 @@ num_classes=1
 # model.add(Dense(1))
 
 model = Sequential()
-# model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160,320,3)))
+model.add(Lambda(lambda x : x / 255.0 - 0.5, input_shape=(160,320,3)))
 
-model.add(Convolution2D(32,5,5,activation='relu', input_shape=input_shape))
-model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-model.add(Conv2D(64,5, 5, activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Convolution2D(6,5,5,activation='relu'))
+model.add(MaxPooling2D())
+model.add(Convolution2D(6,5, 5, activation='relu'))
+model.add(MaxPooling2D())
 model.add(Flatten())
-model.add(Dense(1000, activation='relu'))
+model.add(Dense(120))
+model.add(Dense(84))
 model.add(Dense(num_classes))
 
 
