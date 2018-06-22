@@ -36,7 +36,7 @@ X_train = np.array(augmented_images)
 y_train = np.array(augmented_measurements)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Dropout
+from keras.layers import Flatten, Dense, Convolution2D, Lambda, MaxPooling2D, Dropout, Conv2D
 
 input_shape=(160,320,3)
 num_classes=1
