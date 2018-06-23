@@ -34,7 +34,7 @@ for line in lines:
 	images.append(image)
 	measurements.append(measurement+correction)
 
-	source_path = line[1]
+	source_path = line[2]
 	filename = source_path.split('/')[-1]
 	current_path = FLAGS.folder + '/IMG/' + filename
 	image = cv2.imread(current_path)
